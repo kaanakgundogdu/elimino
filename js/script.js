@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function getStageName(size) {
+        if (size > 8) return "Pre-Elimination";
         if (size === 8) return "Quarterfinals";
         if (size === 4) return "Semifinals";
         if (size === 2) return "Final";
@@ -99,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
     imgA.addEventListener("click", () => chooseWinner(currentRound[index]));
     imgB.addEventListener("click", () => chooseWinner(currentRound[index + 1]));
 
-    // Simple confetti effect
     function launchConfetti() {
         const colors = ["#f2e9b8", "#ffffff", "#ffd700", "#ff6b6b", "#4ecdc4", "#5f27cd"];
         let pieces = 0;

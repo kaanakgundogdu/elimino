@@ -6,16 +6,27 @@
 }
 
 body {
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(-45deg, #0d1b2a, #1b263b, #415a77, #f2e9b8);
+    font-family: 'Poppins', 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(-45deg, #0a0a0a, #1a1a1a, #222831, #393e46);
     background-size: 400% 400%;
-    animation: gradientShift 20s ease infinite;
+    animation: gradientShift 25s ease infinite;
     color: #f0f0f0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2em 5%;
+    position: relative;
+}
+
+/* Subtle vignette */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle, transparent 70%, rgba(0, 0, 0, 0.7) 100%);
+    z-index: 0;
 }
 
 @keyframes gradientShift {
@@ -38,30 +49,29 @@ body {
     text-align: center;
     position: relative;
     z-index: 1;
-    /* keep content above background */
+    background: transparent;
+    padding: 2rem 0;
 }
-
 
 #controls {
     margin-bottom: 20px;
 }
 
 #controls button {
-    padding: 14px 28px;
+    padding: 14px 32px;
     font-size: 18px;
     font-weight: 600;
     border: none;
-    border-radius: 8px;
-    background: #f2e9b8;
-    /* soft yellow accent */
-    color: #1b263b;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #ffd700, #ff9a76);
+    color: #111;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #controls button:hover {
-    background: #e0d89a;
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
 }
 
 #match {
@@ -72,66 +82,63 @@ body {
     flex-wrap: nowrap;
 }
 
-/* Card container: stack image over text */
 .choice {
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
+    position: relative;
     flex: 0 1 auto;
     display: flex;
     flex-direction: column;
-    /* stack image and text vertically */
-    justify-content: center;
     align-items: center;
     width: 800px;
-    height: auto;
-    /* let content define height */
     gap: 12px;
-    /* space between image and text */
+    background: transparent;
 }
 
-/* Image inside card */
+/* Image card with metallic border */
 .choice img {
     width: 100%;
     height: 700px;
-    /* consistent image height */
     object-fit: contain;
-    background: #000;
-    border-radius: 12px;
     display: block;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+    border: 3px solid transparent;
+    border-radius: 20px;
+    background: linear-gradient(#000, #000) padding-box,
+        linear-gradient(135deg, #ffd700, #ff9a76, #ffffff) border-box;
 }
 
-/* Hover: image glow and scale */
+/* Hover: glow like jewelry */
 .choice:hover img {
     transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(242, 233, 184, 0.8);
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.9);
 }
 
 /* Info box below image */
 .info {
     width: 100%;
     max-width: 90%;
-    margin: 0;
     padding: 10px 14px;
     font-size: 16px;
+    font-weight: 400;
     line-height: 1.4;
-    color: #f2e9b8;
-    /* pastel yellow text */
-    background: rgba(0, 0, 0, 0.4);
-    /* semi-transparent dark */
-    border-radius: 8px;
+    color: #ffd700;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-radius: 12px;
     text-align: center;
-    transition: transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
 }
 
-/* Hover: text grows a bit too */
 .choice:hover .info {
-    transform: scale(1.05);
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* Stack vertically on small screens */
+/* Responsive */
 @media (max-width: 900px) {
     #match {
         flex-direction: column;
@@ -145,33 +152,26 @@ body {
 
     .choice img {
         height: 70vw;
-        /* responsive height */
         max-height: 700px;
     }
 }
 
-
 #roundInfo {
     position: relative;
     top: -70px;
-    font-size: 28px;
+    font-family: 'Orbitron', 'Poppins', sans-serif;
+    font-size: 32px;
     margin-bottom: 24px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
+    font-weight: 900;
+    letter-spacing: 2px;
     text-transform: uppercase;
-
-    /* Gradient text: white to pastel yellow */
-    background: linear-gradient(90deg, #ffffff, #f2e9b8, #ffffff);
+    background: linear-gradient(90deg, #ffd700, #ff9a76, #ffffff);
     background-size: 200% auto;
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
-
-    /* Animated gradient movement */
-    animation: gradientFlow 2s ease infinite;
-
-    /* Subtle glow in pastel yellow */
-    text-shadow: 0 0 12px rgba(242, 233, 184, 0.6);
+    animation: gradientFlow 12s ease infinite;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
 }
 
 @keyframes gradientFlow {
@@ -188,45 +188,19 @@ body {
     }
 }
 
-
-.info {
-    margin: 10px 0;
-    padding: 8px 12px;
-    font-size: 16px;
-    color: #f2e9b8;
-    /* pastel yellow text */
-    background: rgba(0, 0, 0, 0.4);
-    /* semi-transparent dark background */
-    border-radius: 8px;
-    text-align: center;
-    max-width: 90%;
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
-
 
 #progress {
     margin-bottom: 20px;
     font-size: 20px;
     font-weight: 600;
-    color: #f2e9b8;
+    color: #ffd700;
     text-transform: uppercase;
     letter-spacing: 1px;
-}
-
-.champion {
-    border: 6px solid #f2e9b8;
-    border-radius: 16px;
-    box-shadow: 0 0 30px rgba(242, 233, 184, 0.9);
-    animation: glowPulse 1.5s infinite alternate;
-}
-
-@keyframes glowPulse {
-    from {
-        box-shadow: 0 0 20px rgba(242, 233, 184, 0.6);
-    }
-
-    to {
-        box-shadow: 0 0 40px rgba(242, 233, 184, 1);
-    }
 }
 
 .confetti {
